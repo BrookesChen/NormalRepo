@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>props与state的混用</title>
+    <!--这三个库是必须的。前两个库是react的库，第三个库是用于转换和解释react库的-->
+    <script src="https://cdn.bootcss.com/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/7.0.0-beta.3/babel.js"></script>
+</head>
+<body>
+<div id="div1"></div>
+
+<script type="text/babel">
+        //定义一个组件类
+        class Dog extends  React.Component{
+            constructor(props){
+                super(props);
+                //初始化state
+                this.state = {
+                    age:1,
+                    friends:["狗友 100"]
+                }
+            }
+
+            //设置props的默认值
+            static defaultProps = {
+                name:'阿福',
+                gender:'公'
+            };
+
+            render(){
+                const {name ,gender} = this.props;
+                const {age ,friends} = this.state;
+                return(
+                    <div>
+                        <p>狗名：{name}</p>
+                        <p>性别：{gender}</p>
+                        <p>我：{age} 岁了</p>
+                        <p>我有如下狗友：</p>
+                        <ul>
+                            {friends.map((friend,index)=>(
+                                <li key={index}>{friend}</li>
+                            ))}
+                        </ul>
+                        <button onClick={()=>this.passYear()}>过一年</button>
+                    </div>
+
+                )
+            }
+
+            passYear(){
+
+                let tempArr = this.state.friends;
+                tempArr.push('狗友 '+ Math.floor(Math.random()*100));
+
+                this.setState({
+                    age:this.state.age + 1,
+                    friends:tempArr
+                })
+
+
+
+
+            }
+        }
+
+    ReactDOM.render(
+        <Dog/> ,
+        document.getElementById('div1')
+    );
+
+
+
+</script>
+

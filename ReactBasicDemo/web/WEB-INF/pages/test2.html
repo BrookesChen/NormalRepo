@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>react 测试</title>
+    <script src="../js/react.js"></script>
+    <script src="../js/react-dom.js"></script>
+    <script src="../js/browser.min.js"></script>
+
+</head>
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+<div id="div3"></div>
+<div id="div4"></div>
+<div id="div5"></div>
+<div id="div6"></div>
+
+<script type="text/babel">
+
+    //通过构造函数创建组件
+    //构造函数名必须使用 大驼峰式命名法
+    function F1(props) {
+        return(
+            <div>
+                <p>{props.sTitle}</p>
+                <img  src="../images/buy.png" width="200" height="200"/>
+                <p>{props.sContext}</p>
+            </div>
+        )
+
+    };
+    const bt="React技术";
+    const nr="这两种办法可以解决图片不多，在前端直接加载图片路径的问题。那么，假设需要从数据库中读取图片的路径。";
+    ReactDOM.render(
+        <F1 sTitle={bt} sContext={nr} />,
+        document.getElementById("div1")
+    )
+
+    //通过class关键字创建组件
+    class F2 extends React.Component{
+        render(){
+            return(
+                <div>
+                <h3>测试class方式创建构造</h3>
+                 {/*如果没有显式的定义构造函数，可以使用this.props.变量名 的方式引用变量*/}
+                <p>{this.props.sTitle}</p>
+                <img  src="../images/buy.png" width="200" height="200"/>
+                <p>{this.props.sContext}</p>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(
+        <F2 sTitle={bt} sContext={nr}/>,
+        document.getElementById("div2")
+    )
+
+    //通过上面的两个实例可以说明，在同一对Script下，定义的变量是全局变量（在<Script>对内）。
+
+
+</script>
+</body>
+</html>

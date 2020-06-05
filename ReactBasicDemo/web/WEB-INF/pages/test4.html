@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>props与state的混用</title>
+    <script src="../js/react.js"></script>
+    <script src="../js/react-dom.js"></script>
+    <script src="../js/browser.min.js"></script>
+    <script src="../js/prop-types.js"></script>
+</head>
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+<div id="div3"></div>
+<div id="div4"></div>
+<div id="div5"></div>
+<div id="div6"></div>
+
+<script type="text/babel">
+
+    //props在 单组件 中，只可以取其值，不能重置其值。
+
+    //1、通过class关键字创建组件类 state机制
+    class ShowItems extends  React.Component{
+        constructor(props) {
+            super(props);
+            //1.1 设置初始状态
+            this.state = {
+                itemAmount: 4500,
+                itemMaster: ['工号：100']
+            }
+        }
+
+        static defaultProps = {
+            itemName: "玛纳斯项目",
+            itemAddress: "新疆"
+        };
+
+        render(){
+            const {itemName,itemAddress} = this.props;
+            const {itemAmount, itemMaster} = this.state;
+            return(
+                <div>
+                    <p>项目名称：{itemName} <br/>项目所在地： {itemAddress} <br/>  </p>
+                    <p>合同金额：{itemAmount} 万元<br/>     </p>
+                    <p>项目成员：</p>
+                    <ul>
+                       {
+                           itemMaster.map(
+                               (master,index)=> (
+                                   <li key={index}> {master}</li>
+                               )
+                           )
+                       }
+                    </ul>
+                    <button onClick={()=>this.freshBtn()}>刷新</button>
+                </div>
+            )
+
+        }
+
+
+        freshBtn(){
+            let  itemMasters = this.state.itemMaster;
+            //alert('0');
+            itemMasters.push('工号：' + Math.floor(Math.random()*1000));
+            //alert('1');
+            //alert(itemMasters.size);
+            this.setState({
+                itemAmount: this.state.itemAmount + 1000,
+                // itemMaster : itemMasters
+            },function () {
+                
+            })
+
+        }
+    }
+
+    ReactDOM.render(
+        <ShowItems />,
+        document.getElementById("div1")
+    );
+
+
+</script>
+</body>
+</html>

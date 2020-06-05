@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>react 测试</title>
+    <script src="../js/react.js"></script>
+    <script src="../js/react-dom.js"></script>
+    <script src="../js/browser.min.js"></script>
+    <style type="text/css">
+        .titleHeader{
+            font-size: larger;
+            font-family: "Microsoft YaHei UI";
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+<div id="div3"></div>
+<div id="div4"></div>
+<div id="div5"></div>
+<div id="div6"></div>
+
+<script type="text/babel">
+    const itemName="鄂尔多斯项目";
+    const sportNames=[{name:'滑雪'},{name:'溜冰'},{name:'击剑'},{name:'骑行'}];
+    ReactDOM.render(
+        <div className="titleHeader">EPC项目名称：{itemName}</div>,
+        document.getElementById("div1")
+    )
+
+    const imgUrl= "../images/buy.png";
+    ReactDOM.render(
+        <img src={imgUrl}/>,
+        document.getElementById("div2")
+    )
+
+    //创建虚拟DOM
+    const vDom1 = (
+        <div>
+            <p>业余体育运动：</p>
+            <ul>
+                {
+                    sportNames.map((data,index)=>
+                        <li key={index}> {data.name} </li>
+                    )
+                }
+            </ul>
+        </div>
+    );
+
+    ReactDOM.render(
+        vDom1,
+        document.getElementById("div3")
+    )
+
+
+    //构造函数名必须使用 大驼峰式命名法
+    function FunA(props) {
+        return(
+            <div>
+                <h3>{props.artTitle}</h3>
+                <img  src="../images/buy.png" width="200" height="200"/>
+                <img  src={props.imageA}  width="200" height="200"/>
+                <p>{props.desc}</p>
+            </div>
+        )
+            ;
+    };
+    const imgAdd ="../images/jms.png";
+    const a= imgAdd;
+    const titleDesc = "据路透社报道，中国企业本周一自美国购入至少三船大豆。这则消息令此前美媒有关“中国下令停购美国农产品”的传闻终被证伪。美国大豆出口协会中国首席代表张晓平周二也向《环球时报》证实，中国采购美国大豆目前正在按部就班推进，似乎并未受到外部因素的影响。"
+    ReactDOM.render(
+        <FunA artTitle="这是一个构造函数的例子" desc={titleDesc}  imageA ={a} />,
+        document.getElementById("div4")
+    );
+
+    //构造函数名必须使用 大驼峰式命名法
+    function F1(props) {
+        return(
+            <div>
+                <p>{props.sTitle}</p>
+                <p>{props.sContext}</p>
+            </div>
+        )
+
+    };
+    const bt="React技术";
+    const nr="这两种办法可以解决图片不多，在前端直接加载图片路径的问题。那么，假设需要从数据库中读取图片的路径。";
+    ReactDOM.render(
+        <F1 sTitle={bt} sContext={nr} />,
+        document.getElementById("div5")
+    )
+
+    ReactDOM.render(
+        [1,2,3].map(x => (
+           <div> -- {x*x} </div>
+        )),
+        document.getElementById("div6")
+    )
+
+
+</script>
+</body>
+</html>

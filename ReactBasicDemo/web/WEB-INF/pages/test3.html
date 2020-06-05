@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>react 测试</title>
+    <script src="../js/react.js"></script>
+    <script src="../js/react-dom.js"></script>
+    <script src="../js/browser.min.js"></script>
+    <script src="../js/prop-types.js"></script>
+
+</head>
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+<div id="div3"></div>
+<div id="div4"></div>
+<div id="div5"></div>
+<div id="div6"></div>
+
+<script type="text/babel">
+
+    //1、通过class关键字创建组件类 state机制
+    class ShowItems extends  React.Component{
+        constructor(props){
+            super(props);
+            //1.1 设置初始状态
+            this.state={
+                itemName:"玛纳斯项目",
+                itemAmount:4500,
+                itemAddress:"新疆",
+                itemMaster:"张大伟"
+            };
+            //this.dealClick = this.dealClick.bind(this);
+        }
+
+        render(){
+            const {itemName ,itemAmount, itemAddress,itemMaster} = this.state;
+            return(
+                <div>
+                    <div>项目名称： {itemName} <br/>   合同总金额：  {itemAmount} <br/>   项目地址： {itemAddress} <br/>   项目负责人：{itemMaster} <br/>    </div>
+
+                    <button onClick = {()=> this.dealClick()}>下一个</button>
+                </div>
+            )
+
+        }
+
+
+        //注意定义的位置
+        dealClick(){
+            this.setState({
+                itemName: "鄂尔多斯项目",
+                itemAmount: 12500,
+                itemAddress: "内蒙古",
+                itemMaster: "田壮状"
+            });
+        }
+
+
+    };
+
+    ReactDOM.render(
+        <ShowItems />,
+        document.getElementById("div1")
+    );
+
+    //两种方式传递函数  推荐用第一种 箭头函数的形式，因为箭头函数没有作用域的限制
+    //方式一： <button onClick = {()=> this.dealClick()}>下一个</button>
+    //方式二： <button onClick = {this.dealClick}>下一个</button>
+
+
+</script>
+</body>
+</html>
